@@ -27,3 +27,9 @@ Example:
 ```bash
 python predict.py --precision 1 --src_lng et --tgt_lng sk --model_path my_model --test_path .\test_data\MUSE_SketchEngine.csv --output output_df.csv
 ```
+
+### Related work
+* [M. Artetxe, G. Labaka, E. Agirre - * Learning principled bilingual mappings of word embeddings while preserving monolingual invariance*, 2016](https://aclanthology.org/D16-1250/)
+* [A. Conneau, G. Lample, L. Denoyer, MA. Ranzato, H. Jégou - *Word Translation Without Parallel Data*, 2017](https://arxiv.org/pdf/1710.04087.pdf)
+* [E. Grave, P. Bojanowski, P. Gupta, A. Joulin, T. Mikolov - *Learning Word Vectors for 157 Languages*, 2018](https://arxiv.org/abs/1802.06893)
+* [O. Herman - *Precomputed Word Embeddings for 15+ Languages*, 2021](https://www.sketchengine.eu/wp-content/uploads/2021-Precomputed-Word-Embeddings.pdf)
