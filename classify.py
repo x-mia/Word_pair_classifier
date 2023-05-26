@@ -164,23 +164,23 @@ def plot_model_history(history):
     
     
 def main(precision, train_path, test_path, plot_fig, output):
-    train_df = pd.read_csv(train_path)
     print("Loading train data")
-    train_data, train_labels = process_train_data(train_df, precision)
+    train_df = pd.read_csv(train_path)
     print("Processing train data")
-    test_df = pd.read_csv(test_path)
+    train_data, train_labels = process_train_data(train_df, precision)
     print("Loading test data")
-    test_data, test_labels = process_test_data(test_df, precision)
+    test_df = pd.read_csv(test_path)
     print("Processing test data")
-    model, history = train_model(train_data, train_labels, test_data, test_labels)
+    test_data, test_labels = process_test_data(test_df, precision)
     print("Training")
-    evaluate_model(model, train_data, train_labels, test_data, test_labels)
+    model, history = train_model(train_data, train_labels, test_data, test_labels)
     print("Evaluating")
+    evaluate_model(model, train_data, train_labels, test_data, test_labels)
     if plot_fig == True:
-        plot_model_history(history)
         print("Plotting")
-    model.save(output)
+        plot_model_history(history)
     print("Saving")
+    model.save(output)
     print("Done")
     
     
