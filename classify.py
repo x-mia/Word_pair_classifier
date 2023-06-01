@@ -20,15 +20,8 @@ def NormalizeData(df, column_name):
     return df
 
 
-def process_train_data(train_df, precision):
-    if precision == 1:
-        train_df = train_df[train_df['position'] == 0]
-        train_df = train_df.rename(columns={'position': 'scaled_position'})
-    if precision == 5:
-        train_df = train_df[train_df['position'] < 5]
-        train_df = NormalizeData(train_df, "position")
-    if precision == 10:
-        train_df = NormalizeData(train_df, "position")
+def process_train_data(train_df):
+    train_df = NormalizeData(train_df, "position")
     train_df = NormalizeData(train_df, "freqs")
     train_df = NormalizeData(train_df, "index")
     train_data = []
@@ -49,32 +42,15 @@ def process_train_data(train_df, precision):
             train_data.append(data_y)
             data_z = data_x[:]
             train_data.append(data_z)
-            if precision == 5 or precision == 1:
-                train_labels.append([1])
-                data_w = data_x[:]
-                train_data.append(data_w)
         elif corr == 'no':
             train_labels.append([0])
-            if precision == 5 or precision == 1:
-                train_labels.append([0])
-                data_q = data_x[:]
-                train_data.append(data_q)
           
         train_data.append(data_x)
     return train_data, train_labels
 
 
-def process_test_data(test_df, precision):
-    if precision == 1:
-        test_df = test_df[test_df['position'] == 0]
-        test_df = test_df.rename(columns={'position': 'scaled_position'})
-        test_df['scaled_position'] = test_df['scaled_position'].replace('-', 0)
-        test_df['scaled_position'] = test_df['scaled_position'].astype(float)
-    if precision == 5:
-        test_df = test_df[test_df['position'] < 5]
-        test_df = NormalizeData(test_df, "position")
-    if precision == 10:
-        test_df = NormalizeData(test_df, "position")
+def process_test_data(test_df):
+    test_df = NormalizeData(test_df, "position")
     test_df = NormalizeData(test_df, "freqs")
     test_df = NormalizeData(test_df, "index")
     test_data = []
@@ -132,11 +108,13 @@ def train_model(train_data, train_labels, test_data, test_labels):
 def evaluate_model(model, train_data, train_labels, test_data, test_labels):
     # Evaluate the model on the training data
     loss_train, accuracy_train = model.evaluate(train_data, train_labels, verbose=0)
+
     print("Training loss:", loss_train)
     print("Training accuracy:", accuracy_train)
 
     # Evaluate the model on the test data
     loss_test, accuracy_test = model.evaluate(test_data, test_labels, verbose=0)
+
     print("Testing loss:", loss_test)
     print("Testing accuracy:", accuracy_test)
     
@@ -163,15 +141,15 @@ def plot_model_history(history):
     plt.show()
     
     
-def main(precision, train_path, test_path, plot_fig, output):
+def main(train_path, test_path, plot_fig, output):
     print("Loading train data")
     train_df = pd.read_csv(train_path)
     print("Processing train data")
-    train_data, train_labels = process_train_data(train_df, precision)
+    train_data, train_labels = process_train_data(train_df)
     print("Loading test data")
     test_df = pd.read_csv(test_path)
     print("Processing test data")
-    test_data, test_labels = process_test_data(test_df, precision)
+    test_data, test_labels = process_test_data(test_df)
     print("Training")
     model, history = train_model(train_data, train_labels, test_data, test_labels)
     print("Evaluating")
@@ -186,7 +164,6 @@ def main(precision, train_path, test_path, plot_fig, output):
     
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Model Training and Evaluation")
-    parser.add_argument("--precision", type=int, choices=[1, 5, 10], help="Select precision: 1, 5, or 10")
     parser.add_argument("--train_path", type=str, help="Path to the train dataframe file")
     parser.add_argument("--test_path", type=str, help="Path to the test dataframe file")
     parser.add_argument("--plot_fig", type=bool, help="True/False if you want to plot Accuracy/Loss to Epochs")
@@ -194,5 +171,5 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    main(args.precision, args.train_path, args.test_path, args.plot_fig, args.output)
+    main(args.train_path, args.test_path, args.plot_fig, args.output)
 
