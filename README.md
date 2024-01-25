@@ -1,6 +1,6 @@
 # Word_pair_classifier
 
-This is a Python library for neural network that classifies correct and incorrect translation equivalents from cross-lingual word embeddings (CWEs). Part of this repository are testing and training data and pre-trained models for five language combinations (et-sk, en-fr, en-cs, en-fi, and en-ko), [here](https://github.com/x-mia/Word_pair_classifier/tree/main/Models_and_Data). These models are pre-trained for two CWE models: [MUSE](https://github.com/facebookresearch/MUSE) and [VecMap](https://github.com/artetxem/vecmap) both trained with [FastText](https://fasttext.cc/) and [SketchEngine](https://embeddings.sketchengine.eu/) (et-sk only) monolingual word embeddings.
+This is a Python library for neural network that classifies correct and incorrect translation equivalents from cross-lingual word embeddings (CWEs). Part of this repository are [testing and training data](https://github.com/x-mia/Word_pair_classifier/tree/main/Data) and [models](https://github.com/x-mia/Word_pair_classifier/tree/main/Models) for five language combinations (et-sk, en-fr, en-cs, en-fi, and en-ko). These models are pre-trained for two CWE models: [MUSE](https://github.com/facebookresearch/MUSE) and [VecMap](https://github.com/artetxem/vecmap) both trained with [FastText](https://fasttext.cc/) and [SketchEngine](https://embeddings.sketchengine.eu/) (et-sk only) monolingual word embeddings.
 
 ### Requirements
 * [Tensorflow](https://www.tensorflow.org/)
@@ -20,7 +20,7 @@ python classify.py --train_path .\train_data\MUSE_SketchEngine.csv --test_path .
 ```
 
 ### Predicting the new data
-To predict new data using pre-trained model, simply run:
+To predict new data using an already trained model, simply run:
 ```bash
 python predict.py --src_lng SRC_LNG --tgt_lng TGT_LNG --model_path MODEL_PATH --test_path TEST_PATH --output OUTPUT
 ```
