@@ -16,7 +16,7 @@ python classify.py --train_path TRAIN_PATH --test_path TEST_PATH --plot_fig PLOT
 ```
 Example:
 ```bash
-python classify.py --train_path .\train_data\MUSE_SketchEngine.csv --test_path .\test_data\MUSE_SketchEngine.csv --plot_fig True --output my_model
+python classify.py --train_path .\Data\EN_CS\MUSE_U\en-cs_train.csv --test_path .\Data\EN_CS\MUSE_U\en-cs_test.csv --plot_fig True --output my_model
 ```
 
 ### Predicting the new data
@@ -26,7 +26,7 @@ python predict.py --src_lng SRC_LNG --tgt_lng TGT_LNG --model_path MODEL_PATH --
 ```
 Example:
 ```bash
-python predict.py --src_lng et --tgt_lng sk --model_path my_model --test_path .\test_data\MUSE_SketchEngine.csv --output output_df.csv
+python predict.py --src_lng et --tgt_lng sk --model_path my_model --test_path .\Data\EN_CS\MUSE_U\en-cs_valid.csv --output predictions_df.csv
 ```
 
 ### Related work
