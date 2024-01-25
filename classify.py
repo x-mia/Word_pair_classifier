@@ -3,6 +3,7 @@
 
 # Importing
 
+import os
 import argparse
 import random
 import tensorflow as tf
@@ -119,7 +120,7 @@ def evaluate_model(model, train_data, train_labels, test_data, test_labels):
     print("Testing accuracy:", accuracy_test)
     
     
-def plot_model_history(history):
+def plot_model_history(history, output):
     # Plot the training and validation accuracy over epochs
     plt.plot(history.history['accuracy'])
     plt.plot(history.history['val_accuracy'])
@@ -127,7 +128,7 @@ def plot_model_history(history):
     plt.xlabel('Epoch')
     plt.ylabel('Accuracy')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig("Accuracy.png", dpi=150)
+    plt.savefig(os.path.join(output, "Accuracy.png"), dpi=150)
     plt.show()
 
     # Plot the training and validation loss over epochs
@@ -137,7 +138,7 @@ def plot_model_history(history):
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend(['train', 'test'], loc='upper left')
-    plt.savefig("Loss.png", dpi=150)
+    plt.savefig(os.path.join(output, "Loss.png"), dpi=150)
     plt.show()
     
     
@@ -154,11 +155,11 @@ def main(train_path, test_path, plot_fig, output):
     model, history = train_model(train_data, train_labels, test_data, test_labels)
     print("Evaluating")
     evaluate_model(model, train_data, train_labels, test_data, test_labels)
-    if plot_fig == True:
-        print("Plotting")
-        plot_model_history(history)
     print("Saving")
     model.save(output)
+    if plot_fig == True:
+        print("Plotting")
+        plot_model_history(history, output)
     print("Done")
     
     
