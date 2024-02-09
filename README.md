@@ -26,7 +26,7 @@ python predict.py --src_lng SRC_LNG --tgt_lng TGT_LNG --model_path MODEL_PATH --
 ```
 Example:
 ```bash
-python predict.py --src_lng et --tgt_lng sk --model_path my_model --test_path .\Data\EN_CS\MUSE_U\en-cs_valid.csv --output predictions_df.csv
+python predict.py --src_lng en --tgt_lng cs --model_path my_model --test_path .\Data\EN_CS\MUSE_U\en-cs_valid.csv --output predictions_df.csv
 ```
 
 ### Related work
